@@ -2,73 +2,159 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Sistema de Delivery</title>
+    <title>Delivery App</title>
 
     <style>
         body {
             font-family: Arial;
+            background: #f5f5f5;
             text-align: center;
-            background-color: #f4f4f4;
         }
 
         h1 {
             margin-top: 20px;
         }
 
-        button {
+        .cardapio button {
             display: block;
             margin: 10px auto;
-            padding: 10px;
-            width: 200px;
+            padding: 12px;
+            width: 250px;
             border: none;
-            background-color: green;
+            border-radius: 8px;
+            background: #28a745;
             color: white;
+            font-size: 16px;
             cursor: pointer;
+            transition: 0.2s;
         }
 
-        button:hover {
-            background-color: darkgreen;
+        .cardapio button:hover {
+            background: #218838;
+            transform: scale(1.05);
+        }
+
+        .container {
+            margin-top: 30px;
         }
 
         #carrinho {
-            margin-top: 20px;
-            border: 1px solid #ccc;
-            width: 250px;
-            margin-left: auto;
-            margin-right: auto;
-            padding: 10px;
             background: white;
+            width: 300px;
+            margin: auto;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin: 5px 0;
+        }
+
+        .total {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .acoes button {
+            margin: 5px;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            color: white;
+        }
+
+        .remover {
+            background: #dc3545;
+        }
+
+        .limpar {
+            background: #ffc107;
+            color: black;
+        }
+
+        .finalizar {
+            background: #007bff;
         }
     </style>
 </head>
+
 <body>
 
-    <h1>Cardápio</h1>
+    <h1>🍔 Cardápio</h1>
 
-    <button onclick="adicionar('Hamburguer', 15)">Hamburguer - R$15</button>
-    <button onclick="adicionar('Pizza', 30)">Pizza - R$30</button>
-    <button onclick="adicionar('Refrigerante', 5)">Refrigerante - R$5</button>
-    <button onclick="adicionar('Batata Frita', 10)">Batata Frita - R$10</button>
+    <div class="cardapio">
+        <button onclick="adicionar('Hamburguer', 15)">Hamburguer - R$15</button>
+        <button onclick="adicionar('Pizza', 30)">Pizza - R$30</button>
+        <button onclick="adicionar('Refrigerante', 5)">Refrigerante - R$5</button>
+        <button onclick="adicionar('Batata Frita', 10)">Batata Frita - R$10</button>
+    </div>
 
-    <div id="carrinho">
-        <h2>Carrinho</h2>
-        <ul id="lista"></ul>
-        <p><strong>Total: R$ <span id="total">0</span></strong></p>
+    <div class="container">
+        <div id="carrinho">
+            <h2>🛒 Carrinho</h2>
+
+            <ul id="lista"></ul>
+
+            <p class="total">Total: R$ <span id="total">0</span></p>
+
+            <div class="acoes">
+                <button class="remover" onclick="remover()">Remover Último</button>
+                <button class="limpar" onclick="limpar()">Limpar</button>
+                <button class="finalizar" onclick="finalizar()">Finalizar Pedido</button>
+            </div>
+        </div>
     </div>
 
     <script>
+        let carrinho = [];
         let total = 0;
 
         function adicionar(nome, preco) {
+            carrinho.push({nome, preco});
+            atualizar();
+        }
+
+        function atualizar() {
             let lista = document.getElementById("lista");
+            lista.innerHTML = "";
 
-            let item = document.createElement("li");
-            item.innerText = nome + " - R$" + preco;
+            total = 0;
 
-            lista.appendChild(item);
+            carrinho.forEach(item => {
+                let li = document.createElement("li");
+                li.innerText = `${item.nome} - R$${item.preco}`;
+                lista.appendChild(li);
+                total += item.preco;
+            });
 
-            total += preco;
             document.getElementById("total").innerText = total;
+        }
+
+        function remover() {
+            carrinho.pop();
+            atualizar();
+        }
+
+        function limpar() {
+            carrinho = [];
+            atualizar();
+        }
+
+        function finalizar() {
+            if (carrinho.length === 0) {
+                alert("Carrinho vazio!");
+                return;
+            }
+
+            alert("Pedido finalizado! Total: R$ " + total);
+            limpar();
         }
     </script>
 
