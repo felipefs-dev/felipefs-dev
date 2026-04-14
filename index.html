@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema de Delivery</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            margin-top: 20px;
+        }
+
+        button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px;
+            width: 200px;
+            border: none;
+            background-color: green;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: darkgreen;
+        }
+
+        #carrinho {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            width: 250px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 10px;
+            background: white;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Cardápio</h1>
+
+    <button onclick="adicionar('Hamburguer', 15)">Hamburguer - R$15</button>
+    <button onclick="adicionar('Pizza', 30)">Pizza - R$30</button>
+    <button onclick="adicionar('Refrigerante', 5)">Refrigerante - R$5</button>
+    <button onclick="adicionar('Batata Frita', 10)">Batata Frita - R$10</button>
+
+    <div id="carrinho">
+        <h2>Carrinho</h2>
+        <ul id="lista"></ul>
+        <p><strong>Total: R$ <span id="total">0</span></strong></p>
+    </div>
+
+    <script>
+        let total = 0;
+
+        function adicionar(nome, preco) {
+            let lista = document.getElementById("lista");
+
+            let item = document.createElement("li");
+            item.innerText = nome + " - R$" + preco;
+
+            lista.appendChild(item);
+
+            total += preco;
+            document.getElementById("total").innerText = total;
+        }
+    </script>
+
+</body>
+</html>
