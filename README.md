@@ -1,6 +1,7 @@
 ## 👋 Olá, eu sou Felipe
 
-🎓 Estudante de Engenharia de Computação na Universidade Tecnológica Federal do Paraná 
+🎓 Estudante de Engenharia de Computação 
+    Universidade Tecnológica Federal do Paraná
 💻 Focado em desenvolvimento de software  
 🚀 Experiência com JavaScript, Python, C e C++  
 
